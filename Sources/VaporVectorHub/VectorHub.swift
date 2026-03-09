@@ -45,14 +45,15 @@ extension Application {
 
     public var vectorHub: any VectorHub.Client {
         get {
-            guard let value = self.storage[VectorHubClientKey.self] else {
-                fatalError(
-                    "VectorHub client not configured. Assign Application.vectorHub during boot.")
+            if let existing = storage[VectorHubClientKey.self] {
+                return existing
             }
-            return value
+            let created = VectorHub.HTTPClient()
+            storage[VectorHubClientKey.self] = created
+            return created
         }
         set {
-            self.storage[VectorHubClientKey.self] = newValue
+            storage[VectorHubClientKey.self] = newValue
         }
     }
 }

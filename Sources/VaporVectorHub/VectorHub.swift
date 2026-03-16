@@ -11,6 +11,10 @@ public enum VectorHub {
             _ request: LLM.Request,
             on app: Application
         ) async throws -> LLM.Response
+        func generateImage(
+            _ request: Images.Request,
+            on app: Application
+        ) async throws -> Images.Response
     }
 
     public struct HTTPClient: Client {
